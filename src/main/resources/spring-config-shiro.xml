@@ -5,14 +5,28 @@
        xsi:schemaLocation="
           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <!-- 启用shrio授权注解拦截方式 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- 装配 securityManager -->
         <property name="securityManager" ref="securityManager"/>
-    </bean>
-    <!-- 配置 Shiro 的 SecurityManager Bean. -->
-    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="cacheManager" ref="cacheManager"/>
-        <property name="realm" ref="myRealm"/>
-        <property name="sessionManager" ref="sessionManager">
+        <!-- 配置登陆页面 -->
+        <property name="loginUrl" value="${shiro.login.url}"/>
+        <property name="unauthorizedUrl" value="${shiro.unauthorizedUrl}"/>
+        <!-- 具体配置需要拦截哪些 URL, 以及访问对应的 URL 时使用 Shiro 的什么 Filter 进行拦截.  -->
+        <property name="filterChainDefinitions">
+            <value>
+                /index=anon
+                /user/* = roles[user]
+                /logout = logout
+            </value>
         </property>
     </bean>
+    <!-- 配置 Shiro 的 SecurityManager Bean -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+    <!-- realm -->
+    <bean id="myRealm" class="com.gb.shiro.shiro.realm.UserRealm"/>
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager"/>
 </beans>

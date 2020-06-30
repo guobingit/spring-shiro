@@ -8,10 +8,11 @@
         http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <!-- 引入属性文件 -->
-    <context:property-placeholder ignore-unresolvable="true" location="classpath:dbconfig.properties"/>
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:dbconfig.properties,classpath:shiro.properties"/>
 
     <!-- 扫描注解Bean -->
     <context:component-scan base-package="com.gb.shiro.service.*" />
 
     <import resource="spring-config-mybatis.xml"/>
+    <import resource="spring-config-shiro.xml"/>
 </beans>
