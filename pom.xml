@@ -17,7 +17,7 @@
         <druid.version>1.1.22</druid.version>
         <mybatis-plus.version>2.3.3</mybatis-plus.version>
         <mysql.version>8.0.19</mysql.version>
-        <shiro.version>1.5.3</shiro.version>
+        <shiro.version>1.10.0</shiro.version>
     </properties>
     <dependencies>
         <!-- commons begin -->
